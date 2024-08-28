@@ -1,0 +1,26 @@
+syntax="proto2";
+package a1.event.rev1;
+
+import "google/protobuf/descriptor.proto";
+
+enum ObsEventType {
+  OBS_EVENT_TYPE_NO_VALUE = 1;
+  OBS_EVENT_TYPE_RBS = 2;
+  OBS_EVENT_TYPE_CELL = 3;
+  OBS_EVENT_TYPE_UE = 4;
+  OBS_EVENT_TYPE_EXT = 5;
+}
+
+extend google.protobuf.MessageOptions {
+  optional ObsEventType event_type = 50001; /// Specifies what type specific header to include [RBS,CELL,UE,EXT].
+}
+
+extend google.protobuf.MessageOptions {
+  optional uint32 event_id = 50002; /// The unique event id for a specific event. Will be copied to event header by framework when creating an ObsEvent.
+}
+
+extend google.protobuf.FieldOptions {
+  optional bool mandatory = 50003 [default=false]; /// Specifies that the framework should verify that a parameter has been set.
+  optional uint32 subrange_min = 50004; /// When specified, the framework should verify that a the parameter is within the subrange.
+  optional uint32 subrange_max = 50005; /// When specified, the framework should verify that a the parameter is within the subrange.
+}

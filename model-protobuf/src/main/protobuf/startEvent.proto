@@ -1,0 +1,14 @@
+syntax="proto2";
+package a1.event.rev1;
+
+option java_outer_classname="StartEventProto";
+
+import "obs_event_options.proto";
+
+message StartEvent {
+  option (event_type) = OBS_EVENT_TYPE_EXT;
+  option (event_id) = 30;
+
+  required uint32 globalCellId = 1;
+  required uint32 globalUeId = 2;
+}
